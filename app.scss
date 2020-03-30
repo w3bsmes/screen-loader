@@ -1,0 +1,141 @@
+// Elastic timing
+$elastic: cubic-bezier(0.5, 1.25, 0.5, 1.25); // Material Indigo
+$indigo: #536dfe; // Material Blue
+$blue: #5677fc; // Loader styles
+$loader-inner-border: #efefef;
+
+$offset: 187;
+$duration: 1.4s;
+
+.loader-container {
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: #f9fafb !important;
+    z-index: 1000;
+    mix-blend-mode: screen;
+    &.invisible {
+        animation: fadeOut 500ms $elastic;
+    }
+
+    .loader {
+        display: block;
+        height: 80px;
+        width: 80px;
+        position: absolute;
+        // right: 50vw;
+        // bottom: 50vh;
+
+        .item {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFF;
+            border-radius: 50%;
+            // transition: all 180ms linear;
+            opacity: 1;
+            transform: translateY(0%);
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                left: 50%;
+                top: 50%;
+                transform: translate3d(-50%,-50%,0);
+                animation: RotateIt 1s linear infinite, colors ($duration*4) linear infinite;
+            }
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border: 3px solid $loader-inner-border;
+                border-radius: 50%;
+                left: 50%;
+                top: 50%;
+                transform: translate3d(-50%,-50%,0);
+            }
+        }
+
+        &.invisible {
+            .item {
+                opacity: 0;
+                animation: hop 500ms $elastic;
+            }
+        }
+    }
+    @keyframes colors {
+        0% {
+            border: 3px solid #4285F4;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+
+        25% {
+            border: 3px solid #DE3E35;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+
+        50% {
+            border: 3px solid #F7C223;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+
+        75% {
+            border: 3px solid #1B9A59;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+
+        100% {
+            border: 3px solid  #4285F4;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+    }
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+    @keyframes hop {
+        0% {
+            transform: translateY(150%);
+            opcatiy: 0;
+        }
+
+        100% {
+            transform: translateY(0%);
+            opcatiy: 1;
+        }
+    }
+    @keyframes RotateIt {
+        0% {
+            transform: translate3d(-50%,-50%,0) rotate(0deg);
+        }
+
+        100% {
+            transform: translate3d(-50%,-50%,0) rotate(720deg);
+        }
+    }
+}
